@@ -1,9 +1,9 @@
-from sklearn.neighbors import NearestNeighbors
+from sklearn.neighbors import KNeighborsClassifier
 
 
 class KNN:
     def __init__(self):
-        self.classifier = NearestNeighbors()
+        self.classifier = KNeighborsClassifier(n_neighbors=2)
 
     def train(self, training_data, targets):
         self.classifier.fit(training_data, targets)
