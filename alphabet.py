@@ -1,9 +1,10 @@
 import numpy as np
-import matplotlib.image as img
-from image import Image as dimg
 import sklearn.model_selection as tt
+import filehandler as fh
 
 class Alphabet:
+
+    # Data fields
     letter_path = "./data/chars74k-lite/"
     alphabet = np.array(['a', 'b', 'c', 'c', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
                          'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'])
@@ -11,30 +12,17 @@ class Alphabet:
     train_data = None
     test_data = None
 
+    # Class methods for instantiation
+
     def __init__(self, test_sample_size=0.25):
         self.create_map()
         self.create_test_train(test_sample_size)
 
-    def read_data(self, letter):
-        letter_images = []
-        try:
-            i = 0
-            while True:
-                image = dimg(img.imread(self.letter_path + letter + "/" + letter + "_" + i.__str__() + ".jpg"))
-                letter_images.append(image)
-                i += 1
-        except FileNotFoundError:
-            pass
-        return np.array(letter_images)
-
     def create_map(self):
         data = []
         for letter in self.alphabet:
-            data.append(self.read_data(letter))
+            data.append(fh.read_letter_images(letter))
         self.data = np.array(data)
-
-    def get_images(self, letter):
-        return self.data[np.where(self.alphabet == letter)[0][0]]
 
     def create_test_train(self, test_sample_size):
         train_data = []
@@ -45,6 +33,11 @@ class Alphabet:
             test_data.append(y)
         self.train_data = train_data
         self.test_data = test_data
+
+    # Callable methods
+
+    def get_images(self, letter):
+        return self.data[np.where(self.alphabet == letter)[0][0]]
 
     def get_test_set(self, letter):
         return self.test_data[np.where(self.alphabet == letter)[0][0]]
