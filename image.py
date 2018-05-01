@@ -14,7 +14,6 @@ class Image():
 
     def smooth(self):
         new_img = np.zeros((20, 20))
-        n = 5
         for x, row in enumerate(self.image):
             for y, elem in enumerate(row):
                 new_img[x][y] = 0 if elem < 75 else 255 if elem > 170 else 125
