@@ -18,10 +18,3 @@ class Image():
 
     def get_outlined_image(self):
         return feature.canny(self.get_filtered_image())
-
-    def smooth(self):
-        new_img = np.zeros((20, 20))
-        for x, row in enumerate(self.image):
-            for y, elem in enumerate(row):
-                new_img[x][y] = 0 if elem < 75 else 255 if elem > 170 else 125
-        return new_img
