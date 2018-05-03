@@ -1,4 +1,4 @@
-from alphabet import Alphabet
+from image_handler import Alphabet
 from k_nn import KNN
 from svm import SVM
 from matplotlib import pyplot as plt

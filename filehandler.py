@@ -10,7 +10,7 @@ def read_letter_images(letter):
     try:
         i = 0
         while True:
-            image = dimg(img.imread(letter_path + letter + "/" + letter + "_" + i.__str__() + ".jpg"))
+            image = dimg(img.imread(letter_path + letter + "/" + letter + "_" + i.__str__() + ".jpg"), letter)
             letter_images.append(image)
             i += 1
     except FileNotFoundError:
