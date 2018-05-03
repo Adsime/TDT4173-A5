@@ -1,9 +1,9 @@
-from image_handler import Alphabet
+from imagehandler import ImageHandler
 import extractor as e
 from k_nn import KNN
 from svm import SVM
 
-alphabet = Alphabet()
+alphabet = ImageHandler()
 
 train_images, train_targets = alphabet.get_all_train_data()
 test_images, test_targets = alphabet.get_all_test_data()

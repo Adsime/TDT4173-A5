@@ -1,9 +1,9 @@
-from image_handler import Alphabet
+from imagehandler import ImageHandler
 from k_nn import KNN
 from svm import SVM
 from matplotlib import pyplot as plt
 
-alphabet = Alphabet()
+alphabet = ImageHandler()
 
 k_nn = KNN()
 svm = SVM()

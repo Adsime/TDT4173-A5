@@ -38,7 +38,7 @@ def apply_otsu_threshold(image):
 
 
 def apply_local_threshold(image):
-    return image > f.threshold_local(image,50)
+    return image > f.threshold_local(image,101)
 
 
 def calculate_hog(image):

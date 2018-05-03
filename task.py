@@ -1,4 +1,4 @@
-from image_handler import Alphabet
+from imagehandler import ImageHandler
 from k_nn import KNN
 from svm import SVM
 from matplotlib import pyplot as plt
@@ -6,7 +6,7 @@ from sklearn.decomposition import PCA
 import image
 import pca as PCA
 
-alphabet = Alphabet(0.20)
+alphabet = ImageHandler(0.20)
 
 k_nn = KNN()
 svm = SVM()

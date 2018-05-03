@@ -2,7 +2,8 @@ import numpy as np
 import sklearn.model_selection as tt
 import filehandler as fh
 
-class Alphabet:
+
+class ImageHandler:
 
     # Data fields
     alphabet = np.array(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
