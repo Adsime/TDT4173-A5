@@ -17,6 +17,7 @@ def read_letter_images(letter):
             i += 1
     except FileNotFoundError:
         pass
+    print("Images for " + letter + " loaded successfully")
     return np.array(letter_images)
 
 

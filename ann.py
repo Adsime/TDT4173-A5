@@ -1,20 +1,21 @@
-from sklearn.neighbors import KNeighborsClassifier
+from sklearn.neural_network import MLPClassifier as ann
 import numpy as np
 
-class KNN:
+
+class ANN:
     def __init__(self):
-        self.classifier = KNeighborsClassifier(n_neighbors=5)
+        self.classifier = ann()
 
     def train(self, images, targets):
         self.classifier.fit(images, targets)
-        print("KNN trained successfully")
+        print("SVM trained successfully")
 
     def predict(self, images):
         predictions = []
-        for prediction in self.classifier.predict_proba(images):
+        for prediction in self.classifier.predict(images):
             argmax = np.argmax(prediction)
             predictions.append([argmax, prediction[argmax]])
-        print("KNN finished predicting " + (len(images)).__str__() + " samples")
+        print("SVM finished predicting " + (len(images)).__str__() + " samples")
         return predictions
 
     def score(self, images, targets):

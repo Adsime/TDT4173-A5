@@ -8,14 +8,18 @@ class SVM:
                               max_iter=-1, probability=True, random_state=None, shrinking=True,
                               tol=0.001, verbose=False)
 
+        self.classifier = SVC(C=950.0, gamma=0.00095)
+
     def train(self, images, targets):
         self.classifier.fit(images, targets)
+        print("SVM trained successfully")
 
     def predict(self, images):
         predictions = []
         for prediction in self.classifier.predict(images):
             argmax = np.argmax(prediction)
             predictions.append([argmax, prediction[argmax]])
+        print("SVM finished predicting " + (len(images)).__str__() + " samples")
         return predictions
 
     def score(self, images, targets):
