@@ -4,7 +4,7 @@ import numpy as np
 
 class ANN:
     def __init__(self):
-        self.classifier = ann()
+        self.classifier = ann(hidden_layer_sizes=400, alpha=0.01)
 
     def train(self, images, targets):
         self.classifier.fit(images, targets)

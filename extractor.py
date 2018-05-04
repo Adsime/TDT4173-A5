@@ -35,7 +35,7 @@ def apply_chambolle_filter(image):
 
 
 def apply_bregman_filter(image):
-    return restoration.denoise_tv_bregman(image, 10000.0)
+    return restoration.denoise_tv_bregman(image, 40)
 
 
 def perform_edge_detection(image):
