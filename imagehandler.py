@@ -33,7 +33,8 @@ class ImageHandler:
             test_images.append(y)
         self.train_images = train_images
         self.test_images = test_images
-
+        print("Training set loaded successfully, " + (len(self.train_images)).__str__() + " samples")
+        print("Test set loaded successfully, " + (len(self.test_images)).__str__() + " samples")
     # Callable methods
 
     def get_images(self, letter):
