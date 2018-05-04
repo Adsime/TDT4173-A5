@@ -1,43 +1,40 @@
-from alphabet import Alphabet
-from k_nn import KNN
-from svm import SVM
-from matplotlib import pyplot as plt
+from imagehandler import ImageHandler
+import extractor as e
+from copy import deepcopy
+import filehandler
+import augmenter as a
+import ann
+import detector
 
-alphabet = Alphabet()
+# Get data
+image_handler = ImageHandler(0.0)
+train_images, train_targets = image_handler.get_all_train_data()
 
-k_nn = KNN()
-svm = SVM()
+# Augment data
+a.add_invert(train_images, train_targets)
 
-training_data = alphabet.get_all_train_data()
-t_data = []
-letters = []
-for i, letter in enumerate(training_data):
-    for image in letter:
-        t_data.append(image.get_filtered_image().flatten())
-        letters.append(i)
+# Select feature extraction methods
+method = [e.apply_isodata_threshold]
+# Apply methods
+train_images = e.extract(method, train_images, True, True, 40)
 
-k_nn.train(t_data, letters)
-svm.train(t_data, letters)
+# Create classifier
+a_nn = ann.ANN()
+# Train classifier
+a_nn.train(train_images, train_targets)
 
-test_data = alphabet.get_all_test_data()
+# Read image to perform detection on
+detection_image = filehandler.read_detection_image(2)
 
-knn_error = 0
-svm_error = 0
-elements = 0
-for i, letter in enumerate(test_data):
-    for image in letter:
-        knn_error += 0 if k_nn.predict(image.get_filtered_image().flatten().reshape(1, -1)) - i == 0 else 1
-        svm_error += 0 if svm.predict(image.get_filtered_image().flatten().reshape(1, -1)) - i == 0 else 1
-        elements += 1
-knn_error /= elements
-svm_error /= elements
+# Perform sliding window method on image
+detector = detector.Detector(detection_image, 1, 20)
+windows = detector.sliding_window()
 
-print("Percentage of letters correctly classified (KNN):", 1-knn_error)
-print("Percentage of letters correctly classified (SVM):", 1-svm_error)
+# Apply feature extraction methods to images containing letters
+extracted_frames = e.extract(method, deepcopy(windows), True)
 
-for i in range(0,26):
-    print("\nExpected: ", i)
-    print("KNN predicted: ", k_nn.predict(test_data[i][0].get_filtered_image().flatten().reshape(1, -1)))
-    print("SVM predicted: ", svm.predict(test_data[i][0].get_filtered_image().flatten().reshape(1, -1)))
-    plt.imshow(test_data[i][0].get_filtered_image(), cmap='gray')
-    plt.show()
+# Predict letters
+predictions = a_nn.predict(extracted_frames)
+
+# Show predictions
+detector.show_results(predictions, 0.8)

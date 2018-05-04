@@ -11,6 +11,7 @@ class SVM:
         self.classifier = SVC(C=950.0, gamma=0.00095)
 
     def train(self, images, targets):
+        print("Training SVM")
         self.classifier.fit(images, targets)
         print("SVM trained successfully")
 

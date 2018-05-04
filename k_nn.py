@@ -6,6 +6,7 @@ class KNN:
         self.classifier = KNeighborsClassifier(n_neighbors=5)
 
     def train(self, images, targets):
+        print("Training KNN")
         self.classifier.fit(images, targets)
         print("KNN trained successfully")
 
